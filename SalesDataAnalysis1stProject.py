@@ -1,0 +1,41 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+data = {"Product":["Mobile","Laptop","Mobile","Mouse","Laptop","Tablet"],"City":["pune","mumbai","pune","pune","mumbai","nashik"],"Month":["jan","jan","Feb","Feb","Feb","March"],
+        "Sales":[20000,50000,30000,1000,40000,15000]}
+df = pd.DataFrame(data)
+print(df)
+print("Understanding Dataset: (Rows & Column:=",df.shape)
+print("Information About The Dataset:")
+df.info()
+print("Columns Names:",df.columns)
+print("Display first 5 Rows of DataFrame By default:",df.head())
+print("Display Laast 5 Rows of DataFrame By default:",df.tail())
+print("Statistical Summaries:",df.describe())
+print(df.isnull().sum())
+print(df.duplicated())
+print(df.dtypes)
+total_Sales = df["Sales"].sum()
+print("Total Sales:",total_Sales)
+product_sales = df.groupby("Product")["Sales"].sum()
+print("Product Wise Sales:",product_sales)
+city = df.groupby("City")["Sales"].sum()
+print("City Wise Sales:",city)
+month_order = ["jan","Feb","March"]
+month = df.groupby("Month")["Sales"].sum()
+month = month.reindex(month_order)
+print(month)
+print("Best-Selling Product:",product_sales.idxmax())
+print("Best Sales City:",city.idxmax())
+print("Best Sales Month:",month.idxmax())
+product_sales.plot(kind="bar")
+plt.title("Product Wise Sales")
+plt.xlabel("Product")
+plt.ylabel("Total sales")
+plt.show()
+month.plot(kind="line")
+plt.title("Month Wise Sales")
+plt.xlabel("Month")
+plt.ylabel("Total sales")
+plt.show()
+                   
+
